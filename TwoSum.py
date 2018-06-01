@@ -137,6 +137,7 @@ class Solution(object):
         :type numRows: int
         :rtype: str
         """
+
         print s
         if len(s) == 0:
             return ""
@@ -160,3 +161,96 @@ class Solution(object):
             while len(l[i]):
                 result += l[i].pop(0)
         return result
+
+    def recursive(self, s):
+        i = 0
+        result = ""
+        count = 1
+        while i < len(s):
+            if i+1 < len(s):
+                if s[i] != s[i + 1]:
+                    result += str(count) + s[i]
+                    count = 0
+            else:
+                result += str(count) + s[i]
+            i += 1
+            count += 1
+
+        return result
+
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n == 1:
+            return "1"
+        k = 1
+        s = "1"#self.recursive("1")
+
+        while k < n:
+            s = self.recursive(s)
+            k += 1
+        return s
+
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        p_dict = {
+            "(": ")",
+            "[": "]",
+            "{": "}"
+        }
+        left = []
+        for c in s:
+            if c in p_dict.keys():
+                left.append(c)
+            elif c in p_dict.values():
+                if left == [] or p_dict[left.pop()] != c:
+                    return False
+            else:
+                return False
+        return left == []
+
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if len(strs) == 0:
+            return ""
+        if len(strs) == 1:
+            return strs[0]
+
+        index = 0
+        while index < len(strs[0]):
+            for s in strs:
+                if index >= len(s):
+                    break
+                if s[index] != strs[0][index]:
+                    break
+            index += 1
+        result = strs[0][0: index]
+        return result
+
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        if x > y:
+            x, y = y, x
+        sy = bin(y)
+        sx = bin(x)
+        l = list(sx)
+        for i in range(len(sy) - len(sx)):
+            l.insert(2, "0")
+
+        counter = 0
+        for i in range(len(sy)):
+            if sy[i] != l[i]:
+                counter += 1
+        return counter

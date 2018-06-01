@@ -16,8 +16,21 @@ solution = Solution()
 # val = 10
 # result = solution.isPalindrome(val)
 
-s = "PAYPALISHIRING"
-numRows = 4
-result = solution.convert(s, numRows)
+# s = "PAYPALISHIRING"
+# numRows = 4
+# result = solution.convert(s, numRows)
 
+#
+# n = 5
+# result = solution.countAndSay(n)
+
+# s = "()[]{}"
+# result = solution.isValid(s)
+
+# strs = ["a","cc"]
+# result = solution.longestCommonPrefix(strs)
+
+x = 4
+y = 1
+result = solution.hammingDistance(x, y)
 print result
