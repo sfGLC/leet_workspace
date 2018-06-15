@@ -254,3 +254,71 @@ class Solution(object):
             if sy[i] != l[i]:
                 counter += 1
         return counter
+
+    def floodFill(self, image, sr, sc, newColor):
+        """
+        :type image: List[List[int]]
+        :type sr: int
+        :type sc: int
+        :type newColor: int
+        :rtype: List[List[int]]
+        """
+        val = image[sr][sc]
+        if val == newColor:
+            return image
+        image[sr][sc] = newColor
+        if sr - 1 >= 0 and image[sr - 1][sc] == val:
+            self.floodFill(image, sr - 1, sc, newColor)
+        if sr + 1 < len(image) and image[sr + 1][sc] == val:
+            self.floodFill(image, sr + 1, sc, newColor)
+        if sc - 1 >= 0 and image[sr][sc - 1] == val:
+            self.floodFill(image, sr, sc - 1, newColor)
+        if sc + 1 < len(image[0]) and image[sr][sc + 1] == val:
+            self.floodFill(image, sr, sc + 1, newColor)
+
+        # def fill(x, y):
+        #     image[x][y] = newColor
+        #     if x - 1 >= 0 and image[x - 1][y] == val:
+        #         fill(x - 1, y)
+        #     if x + 1 < m and image[x + 1][y] == val:
+        #         fill(x + 1, y)
+        #     if y - 1 >= 0 and image[x][y - 1] == val:
+        #         fill(x, y - 1)
+        #     if y + 1 < m and image[x][y + 1] == val:
+        #         fill(x, y + 1)
+        #
+        # val = image[sr][sc]
+        # m = len(image)
+        # n = len(image[0])
+        # if val == newColor:
+        #     return image
+        #
+        # fill(sr, sc)
+
+        return image
+
+    def merge(self, A, p, q, r):
+        left = []
+        right = []
+        for i in A[p:q + 1]:
+            left.append(i)
+        for j in A[q + 1:r]:
+            right.append(j)
+        i = j = 0
+        for k in range(p, r):
+            if i < len(left) and j < len(right):
+                if left[i] < right[j]:
+                    A[k] = left[i]
+                    i += 1
+                else:
+                    A[k] = right[j]
+                    j += 1
+
+
+    def mergeSort(self, A, s, e):
+        if e - s == 0:
+            return
+        mid = (e - s) / 2
+        self.mergeSort(A, s, s + mid)
+        self.mergeSort(A, s + mid + 1, e)
+        self.merge(A, s, mid, e)
